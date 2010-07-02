@@ -12,6 +12,9 @@ module RSpec
   module Rails
     module ControllerExampleGroup
       include Shoulda::ActionController::Matchers
+      def subject
+        @controller
+      end
     end
 
     module MailerExampleGroup
