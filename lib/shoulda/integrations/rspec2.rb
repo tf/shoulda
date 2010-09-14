@@ -10,11 +10,17 @@ module RSpec
   end
 
   module Rails
+    module ControllerExampleGroupSubjectFix
+      # If no explicit subject is specified, use @controller instead
+      def subject
+        object = super
+        object.is_a?(::ActionController::Base) ? @controller : object
+      end
+    end
+    
     module ControllerExampleGroup
       include Shoulda::ActionController::Matchers
-      def subject
-        @controller
-      end
+      include ControllerExampleGroupSubjectFix
     end
 
     module MailerExampleGroup
